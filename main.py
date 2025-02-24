@@ -20,3 +20,6 @@ email_column = "Email"
 if email_column not in df.columns:
     raise ValueError(f"No se encontró la columna '{email_column}' en el archivo CSV")
 
+# Extraer los correos electrónicos
+emails = df[email_column].dropna().unique()
+
