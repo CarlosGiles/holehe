@@ -23,3 +23,6 @@ if email_column not in df.columns:
 # Extraer los correos electrónicos
 emails = df[email_column].dropna().unique()
 
+# Ruta del ejecutable de holehe (ajustar variables de entorno si es necesario)
+holehe_executable = "C:/Users/User/Scripts/holehe.exe"
+
