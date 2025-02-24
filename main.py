@@ -14,3 +14,9 @@ output_file = f"holehe_results_{fecha_actual}.csv"
 
 # Cargar el CSV
 df = pd.read_csv(file_path,encoding='latin1')
+
+# Verificar la existencia de la columna de correos
+email_column = "Email"
+if email_column not in df.columns:
+    raise ValueError(f"No se encontró la columna '{email_column}' en el archivo CSV")
+
