@@ -32,3 +32,23 @@ results = []
 # Lista de términos a ignorar en la columna "Sitio"
 ignore_terms = ["Email used", "Email not used", "Rate limit", "FullName", "https://"]
 
+# Procesar cada correo
+for email in emails:
+    print(f"Procesando: {email}")
+    result = subprocess.run([holehe_executable, email], capture_output=True, text=True)
+    
+    # Imprimir la salida para depuración
+    print("Salida de holehe:")
+    print(result.stdout)
+    
+    # Analizar la salida y filtrar solo sitios con "+"
+    lines = result.stdout.split("\n")
+    positive_sites = [re.sub(r'\[\+\]\s*', '', line).strip() for line in lines if line.strip().startswith("[+]")]
+    
+    # Filtrar sitios que contienen términos no deseados
+    filtered_sites = [site for site in positive_sites if not any(term in site for term in ignore_terms)]
+    
+    # Guardar en formato Email | Sitio | [+]
+    for site in filtered_sites:
+        results.append({"Email": email, "Sitio": site, "[+]": "+"})
+
