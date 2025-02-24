@@ -52,3 +52,17 @@ for email in emails:
     for site in filtered_sites:
         results.append({"Email": email, "Sitio": site, "[+]": "+"})
 
+# Guardar los resultados en un archivo CSV
+try:
+    if results:
+        with open(output_file, "w", newline="", encoding="utf-8") as f:
+            fieldnames = ["Email", "Sitio", "[+]"]
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(results)
+
+        print(f"✅ Resultados guardados en {output_file}")
+    else:
+        print("⚠️ No se encontraron resultados positivos. Revisa la salida de holehe.")
+except Exception as e:
+    print(f"❌ Error al guardar el archivo CSV: {e}")
